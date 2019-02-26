@@ -1,4 +1,23 @@
 <?php
+  $dbopts = parse_url(getenv('DATABASE_URL'));
+  $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
+               array(
+                'pdo.server' => array(
+                   'driver' => 'pgsql',
+                   'user' => $dbopts['user'],
+                   'password' => $dbopts['pass'],
+                   'host' => $dbopts['host'] ?? null,
+                   'port' => $dbopts['port'],
+                   'dbname' => ltrim($dbopts['path'], '/'),
+                   ),
+               )
+);
+//   'driver'=> 'pgsql',
+//   'user' => $dbopts["user"],
+//   'password' => $dbopts["pass"],
+//   'host' => $dbopts["host"],
+//   'port' => $dbopts["port"],
+//   'dbname' => ltrim($dbopts["path"],'/')
 
 return [
     /*
@@ -12,7 +31,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql_production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,6 +85,17 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'pgsql_production' => [
+            'driver' => 'pgsql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
         ],
 
         'sqlsrv' => [
