@@ -41,8 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/users', 'UserController@index')->name('users.index');
     });
 
-    //only admin can have access
-    Route::resource('roles', 'RoleController')->middleware('checkadmin');
+    //only admin can have access  ->middleware('checkadmin');
+    Route::resource('roles', 'RoleController');
 
     Route::post('/accounts/apply_for_payout', 'AccountController@apply_for_payout')->name('accounts.apply_for_payout');
     Route::post('/accounts/mark_as_paid', 'AccountController@mark_as_paid')
