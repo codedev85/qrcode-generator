@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     //only admin can have access  ->middleware('checkadmin');
-    Route::resource('roles', 'RoleController');
+    Route::resource('roles', 'RoleController')->middleware('checkadmin');
 
     Route::post('/accounts/apply_for_payout', 'AccountController@apply_for_payout')->name('accounts.apply_for_payout');
     Route::post('/accounts/mark_as_paid', 'AccountController@mark_as_paid')
