@@ -72,7 +72,7 @@ class QrcodeController extends AppBaseController
             'qrcode_owner_id' => $qrcode->user_id,
         ]);
 
-        return view('qrcodes.paystack-form')
+        return view('qrcodes.paystackform')
                     ->with('transaction', $transaction)
                     ->with('user', $user)
                     ->with('qrcode', $qrcode);
