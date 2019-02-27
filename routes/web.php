@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Laravel 5.1.17 and above
 Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
-Route::post('/qrcodes/show_payment', 'QrcodeController@show_payment')->name('qrcodes.show_payment');
+Route::post('/qrcodes/showpayment', 'QrcodeController@show_payment')->name('qrcodes.showpayment');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
 Route::get('/transactions/{id}', 'TransactionController@show')->name('transactions.show');
 

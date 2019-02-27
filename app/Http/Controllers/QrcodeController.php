@@ -47,7 +47,7 @@ class QrcodeController extends AppBaseController
         // return new QrcodeResource($qrcodes);
     }
 
-    public function show_payment(Request $request)
+    public function showpayment(Request $request)
     {
         //check if the user exists
         //if not create a registration form

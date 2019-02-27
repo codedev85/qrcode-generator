@@ -86,7 +86,7 @@
    {{-- @include('qrcodes.paystack-form') --}}
 
    <div class="col-md-4">
-    <form method="POST" role="form" action="{{route('qrcodes.show_payment')}}" >
+    <form method="POST" role="form" action="{{route('qrcodes.showpayment')}}" >
  {{csrf_field()}}
         @if(Auth::guest())
        <label for="email" class="text-success">Enter your Email</label>
