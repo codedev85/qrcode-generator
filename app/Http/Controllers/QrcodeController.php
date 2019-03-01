@@ -47,37 +47,6 @@ class QrcodeController extends AppBaseController
         // return new QrcodeResource($qrcodes);
     }
 
-    public function showpayment(Request $request)
-    {
-        //check if the user exists
-        //if not create a registration form
-        $input = $request->all();
-        $user = User::where('email', $input['email'])->first();
-
-        if (empty($user)) {
-            $user = User::create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'password' => Hash::make($input['email']),
-            ]);
-        }
-        //qet the qrcode details
-        $qrcode = QrcodeModel::where('id', $input['qrcode_id'])->first();
-        $transaction = Transaction::create([
-            'qrcode_id' => $qrcode->id,
-            'user_id' => $qrcode->user_id,
-            'status' => 'Initiated',
-            'payment_method' => 'Paystack/Card',
-            'ammount' => $qrcode->ammount,
-            'qrcode_owner_id' => $qrcode->user_id,
-        ]);
-
-        return view('qrcodes.paystackform')
-                    ->with('transaction', $transaction)
-                    ->with('user', $user)
-                    ->with('qrcode', $qrcode);
-    }
-
     /**
      * Show the form for creating a new Qrcode.
      *
@@ -146,8 +115,8 @@ class QrcodeController extends AppBaseController
         $transactions = $qrcode->transactions;
 
         return view('qrcodes.show')
-                   ->with('qrcode', $qrcode);
-        //    ->with('transactions', $transactions);
+                   ->with('qrcode', $qrcode)
+           ->with('transactions', $transactions);
     }
 
     /**
@@ -217,5 +186,36 @@ class QrcodeController extends AppBaseController
         Flash::success('Qrcode deleted successfully.');
 
         return redirect(route('qrcodes.index'));
+    }
+
+    public function showpayment(Request $request)
+    {
+        //check if the user exists
+        //if not create a registration form
+        $input = $request->all();
+        $user = User::where('email', $input['email'])->first();
+
+        if (empty($user)) {
+            $user = User::create([
+                'name' => $input['name'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['email']),
+            ]);
+        }
+        //qet the qrcode details
+        $qrcode = QrcodeModel::where('id', $input['qrcode_id'])->first();
+        $transaction = Transaction::create([
+            'qrcode_id' => $qrcode->id,
+            'user_id' => $qrcode->user_id,
+            'status' => 'Initiated',
+            'payment_method' => 'Paystack/Card',
+            'ammount' => $qrcode->ammount,
+            'qrcode_owner_id' => $qrcode->user_id,
+        ]);
+
+        return view('qrcodes.paystackform')
+                    ->with('transaction', $transaction)
+                    ->with('user', $user)
+                    ->with('qrcode', $qrcode);
     }
 }
