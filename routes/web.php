@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('qrcodes', 'QrcodeController')->except('[show]');
 
     Route::resource('accounts', 'AccountController')->except('[show]');
-    // /{id?}
-    Route::get('accounts/show', 'AccountController@show')->name('accounts.show');
+
+    Route::get('accounts/show/{id?}', 'AccountController@show')->name('accounts.show');
 
     Route::resource('transactions', 'TransactionController')->except('[show]');
 
