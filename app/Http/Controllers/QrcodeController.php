@@ -138,7 +138,7 @@ class QrcodeController extends AppBaseController
     {
         $qrcode = $this->qrcodeRepository->findWithoutFail($id);
 
-        if (empty($qrcode)) {
+        if (!empty($qrcode)) {
             Flash::error('Qrcode not found');
 
             return redirect(route('qrcodes.index'));
