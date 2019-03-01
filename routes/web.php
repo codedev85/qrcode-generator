@@ -19,12 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Laravel 5.1.17 and above
-Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
-Route::post('/qrcodes/showpayment', 'QrcodeController@showpayment')->name('qrcodes.showpayment');
-Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
-Route::get('/transactions/{id}', 'TransactionController@show')->name('transactions.show');
-
 // Auth::routes();
 //can only access when you are logged in
 
@@ -65,6 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('accountHistories.create')
     ->middleware('checkadmin');
 });
+// Laravel 5.1.17 and above
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
+Route::post('/qrcodes/showpayment', 'QrcodeController@showpayment')->name('qrcodes.showpayment');
+Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
+Route::get('/transactions/{id}', 'TransactionController@show')->name('transactions.show');
 
 Route::get('/qrcodes/{id}', 'QrcodeController@show')->name('qrcodes.show');
 // Route::get('/home', 'HomeController@index');
