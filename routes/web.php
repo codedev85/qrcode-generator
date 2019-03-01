@@ -25,9 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('qrcodes', 'QrcodeController')->except('[show]');
     Route::resource('transactions', 'TransactionController')->except('[show]');
-
-    Route::get('accounts/show/{id?}', 'AccountController@show')->name('accounts.show');
     Route::resource('accounts', 'AccountController')->except('[show]');
+    Route::get('accounts/show/{id?}', 'AccountController@show')->name('accounts.show');
     Route::resource('accountHistories', 'AccountHistoryController');
     Route::resource('users', 'UserController');
 
